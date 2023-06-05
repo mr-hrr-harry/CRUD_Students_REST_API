@@ -14,6 +14,8 @@ con.on('open', function(){              // Callback as normal function
     console.log('Connected...')
 })
 
+app.use(express.json())
+
 const homeRouter = require('./routers/home')
 app.use('/home', homeRouter)
 

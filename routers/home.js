@@ -11,4 +11,23 @@ router.get('/', async(req, res) => {         // Get request
     }
 })
 
+router.post('/', async(req, res) => {
+    const stud = new Student({
+        regno: req.body.regno,
+        name: req.body.name,
+        gender: req.body.gender,
+        specialisation: req.body.specialisation,
+        cgpa: req.body.cgpa,
+        eligiblity: req.body.eligiblity
+    })
+
+    try{
+        await stud.validate()
+        const s1 = await stud.save()
+        res.json(s1)
+    }catch(err){
+        console.log('Error: ' + err);
+    }
+})
+
 module.exports = router
