@@ -26,7 +26,20 @@ router.post('/', async(req, res) => {
         const s1 = await stud.save()
         res.json(s1)
     }catch(err){
-        console.log('Error: ' + err);
+        console.log("Error: " + err);
+    }
+})
+
+router.get('/:regnum', async(req, res) => {
+    try{
+        const stud = await Student.findOne({ regno : req.params.regnum})
+        if(stud === null){
+            res.end("Data don't Exist!")
+            return
+        }
+        res.json(stud)
+    }catch(err){
+        console.log("Error: " + err)
     }
 })
 
