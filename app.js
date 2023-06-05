@@ -10,7 +10,14 @@ mongoose.connect(url, {
 })
 const con = mongoose.connection
 
-con.on('open', function(){
-    console.log("Connected...")
+con.on('open', function(){              // Callback as normal function
+    console.log('Connected...')
+})
+
+const homeRouter = require('./routers/home')
+app.use('/home', homeRouter)
+
+app.listen(3737, () => {                // Callback as arrow function
+    console.log('Server Started!')
 })
 
