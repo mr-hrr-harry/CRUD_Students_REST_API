@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {         // Get request
 router.get('/:regnum', async(req, res) => {
     try{
         const stud = await Student.findOne({ regno : req.params.regnum})
-        if(stud === null){
+        if(stud == null){
             res.end("Data don't Exist!")
             return
         }
@@ -60,11 +60,12 @@ router.patch('/:regno', async(req, res) => {
 
 router.delete('/:regno', async(req, res) => {
     try{
-        const status = await Student.findOneAndDelete({ regno : req.params.id})
-        if(status==null){
+        const ans = await Student.deleteOne({ regno : req.params.regno})
+        if(ans==null){
             res.end("Student doesn't exist!")
-        }else{
-            res.end("Student Data deleted!")
+        }
+        else{
+            res.end("Data deleted Successfully!")
         }
 
     }catch(err){
