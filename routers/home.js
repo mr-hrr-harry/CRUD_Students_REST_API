@@ -11,6 +11,19 @@ router.get('/', async(req, res) => {         // Get request
     }
 })
 
+router.get('/:regnum', async(req, res) => {
+    try{
+        const stud = await Student.findOne({ regno : req.params.regnum})
+        if(stud === null){
+            res.end("Data don't Exist!")
+            return
+        }
+        res.json(stud)
+    }catch(err){
+        console.log("Error: " + err)
+    }
+})
+
 router.post('/', async(req, res) => {
     const stud = new Student({
         regno: req.body.regno,
@@ -30,14 +43,30 @@ router.post('/', async(req, res) => {
     }
 })
 
-router.get('/:regnum', async(req, res) => {
+router.patch('/:regno', async(req, res) => {
     try{
-        const stud = await Student.findOne({ regno : req.params.regnum})
-        if(stud === null){
-            res.end("Data don't Exist!")
+        const stud = await Student.findOneAndUpdate({ regno : req.params.regno },  req.body, {new: true})
+
+        if(stud==null){
+            res.write("Student doesn't exist!")
+            res.send()
             return
         }
-        res.json(stud)
+        res.json(await Student.findOne({regno : req.params.regno}))
+    }catch(err){
+        console.log("Error: " + err)
+    }
+})
+
+router.delete('/:regno', async(req, res) => {
+    try{
+        const status = await Student.findOneAndDelete({ regno : req.params.id})
+        if(status==null){
+            res.end("Student doesn't exist!")
+        }else{
+            res.end("Student Data deleted!")
+        }
+
     }catch(err){
         console.log("Error: " + err)
     }
