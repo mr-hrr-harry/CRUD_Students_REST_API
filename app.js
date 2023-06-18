@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
-const url = "mongodb://127.0.0.1:27017/HarryDB"
+const url = process.env.url
 
 const app = express()
 
